@@ -14,22 +14,35 @@ does not include those catalog repairs.
 
 ## Install
 
+An existing WeeWX station is required. Replace `/path/to/weewx.conf`
+with its configuration file before running the commands.
+
 Use the Python environment and `weectl` belonging to your WeeWX station. The catalog release requires Python >=3.10,<3.15 and WeeWX >=5.5,<6.
+
+Before running the commands, activate the existing virtual environment that
+runs your WeeWX service. Both `python` and `weectl` must come from that
+environment. For an OS-packaged WeeWX installation, use compatible distribution
+packages instead, or migrate WeeWX and its service to a virtual environment
+first. Installing into an unrelated virtual environment will not supply the
+running service with dependencies.
 
 Install `pyserial` in the WeeWX Python environment:
 
 ```sh
-python -m pip install pyserial
+python -m pip install 'pyserial==3.5'
 ```
+
+The distribution is named `pyserial`; it provides the `serial` import.
+Do not install the different package named `serial`.
 
 ```sh
 weectl extension install https://github.com/weewx-packages/catalog/releases/download/id5001/v0.1.post1/id5001-0.1.post1.tar.gz --config=/path/to/weewx.conf
 weectl station reconfigure --driver=user.id5001 --config=/path/to/weewx.conf
 ```
 
-Replace `/path/to/weewx.conf` with your station configuration. A downloaded copy
-of this same archive can be passed instead of the URL. These commands work with
-stock WeeWX 5; no package-manager integration is required.
+A downloaded copy of this same archive can be passed instead of the URL.
+These commands work with stock WeeWX 5; no package-manager integration is
+required.
 
 ## Configure serial acquisition
 
